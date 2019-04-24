@@ -1,0 +1,25 @@
+{
+  "name": "fsk-typescript-react-express",
+  "version": "1.0.0",
+  "description": "Great for projects of any size… startups and enterprises!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gonghaima/Fsk-typescript-react-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gonghaima/Fsk-typescript-react-express/issues"
+  },
+  "homepage": "https://github.com/gonghaima/Fsk-typescript-react-express#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.11",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "typescript": "^3.4.5"
+  }
+}

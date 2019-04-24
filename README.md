@@ -674,4 +674,3 @@ Notice lines 7 and 11 in the snippet below. We can build for production with npm
 Now when you start the Express server in production mode and navigate to the same route you started it under in the browser, you should see the React app displayed.
 
 Please star the repo and OvernightJS repo on GitHub if you found this article helpful. Happy web-deving :)
-
