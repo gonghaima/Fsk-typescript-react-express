@@ -16,6 +16,11 @@
     "url": "https://github.com/gonghaima/Fsk-typescript-react-express/issues"
   },
   "homepage": "https://github.com/gonghaima/Fsk-typescript-react-express#readme",
+  "dependencies": {
+    "@overnightjs/core": "^1.4.1",
+    "express": "^4.16.4",
+    "simple-color-print": "^1.0.5"
+  },
   "devDependencies": {
     "nodemon": "^1.18.11",
     "ts-node": "^8.1.0",
