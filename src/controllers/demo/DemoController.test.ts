@@ -1,29 +1,53 @@
-import { Controller, Get } from "@overnightjs/core";
-import { Request, Response } from "express";
-import { cinfo, cerr } from "simple-color-print";
+import * as supertest from "supertest";
 
-@Controller("api/say-hello")
-class DemoController {
-  public readonly SUC_MSG = "hello";
-  public readonly ERR_MSG = "can't say hello";
+import {} from "jasmine";
+import { SuperTest, Test } from "supertest";
+import { cerr } from "simple-color-print";
 
-  @Get(":name")
-  private sayHello(req: Request, res: Response): void {
-    try {
-      const name = req.params.name;
+import TestServer from "../shared/TestServer.test";
+import DemoController from "./DemoController";
 
-      if (name === "makeitfail") {
-        throw Error("User triggered failure");
-      }
+describe("DemoController", () => {
+  const demoController = new DemoController();
+  let agent: SuperTest<Test>;
 
-      cinfo('API: "GET /api/say-hello/:name" called with param: ' + name);
+  beforeAll(done => {
+    // Activate the routes
+    const server = new TestServer();
+    server.setController(demoController);
 
-      res.status(250).json({ response: this.SUC_MSG });
-    } catch (err) {
-      cerr(err);
-      res.status(400).json({ response: this.ERR_MSG });
-    }
-  }
-}
+    // Start supertest
+    agent = supertest.agent(server.getExpressInstance());
+    done();
+  });
 
-export default DemoController;
+  describe('API: "/api/say-hello/:name"', () => {
+    const { SUC_MSG, ERR_MSG } = demoController;
+
+    it(`should return a JSON object with the message "${SUC_MSG}" and a status code of 250
+            if message was successful`, done => {
+      agent.get("/api/say-hello/seanmaxwell").end((err, res) => {
+        if (err) {
+          cerr(err);
+        }
+
+        expect(res.status).toBe(250);
+        expect(res.body.response).toBe(SUC_MSG);
+        done();
+      });
+    });
+
+    it(`should return a JSON object with the message "${ERR_MSG}" and a status code of 400
+            if message was unsuccessful`, done => {
+      agent.get("/api/say-hello/makeitfail").end((err, res) => {
+        if (err) {
+          cerr(err);
+        }
+
+        expect(res.status).toBe(400);
+        expect(res.body.response).toBe(ERR_MSG);
+        done();
+      });
+    });
+  });
+});
